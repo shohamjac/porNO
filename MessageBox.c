@@ -48,7 +48,7 @@ DWORD WINAPI JumpMessageBox(LPVOID lpParam)
 	HHOOK hhookCBTProc = SetWindowsHookEx(WH_CBT,
 		pfnCBTMsgBoxHook,
 		0, GetCurrentThreadId());
-	int SelectedButton = MessageBox(NULL, "got you", "You dirty boy!", MB_ABORTRETRYIGNORE | MB_ICONERROR | MB_SYSTEMMODAL);
+	int SelectedButton = MessageBox(NULL, "You dirty boy!", "Error", MB_ABORTRETRYIGNORE | MB_ICONERROR | MB_SYSTEMMODAL);
 	if (SelectedButton == IDRETRY) JumpMessageBox(NULL);
 	
 	//MessageBox(NULL, "You Naughty!", NULL, MB_OK | MB_ICONERROR);
